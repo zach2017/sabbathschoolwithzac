@@ -63,6 +63,40 @@
     }
     a, button { color: inherit; }
     .dark a, .dark button { color: inherit; }
+
+    /* Print appendix (study popups printed inline) — hidden on screen */
+    #printAppendix { display: none; }
+
+    /* ===== PRINT / PDF STYLES ===== */
+    @media print {
+      @page { margin: 0.6in; }
+      html, body, .dark body { background: #ffffff !important; color: #000000 !important; }
+      .dark body, .dark body *, body, body * { color: #000000 !important; }
+      body { font-size: 11pt !important; }
+      .no-print { display: none !important; }
+      header { position: static !important; border: 0 !important; background: #fff !important; backdrop-filter: none !important; }
+      main { max-width: 100% !important; padding: 0 !important; }
+      /* Expand every accordion */
+      .accordion-content { max-height: none !important; overflow: visible !important; transition: none !important; }
+      .accordion-content .px-5 { padding-top: 0.5rem !important; }
+      /* Flatten cards, keep readable borders */
+      section, .rounded-xl, .rounded-2xl { box-shadow: none !important; break-inside: avoid; page-break-inside: avoid; }
+      .egw-quote, .dark .egw-quote { background: #fffbeb !important; border-left-color: #b45309 !important; color: #000 !important; }
+      .jesus-words, .dark .jesus-words { color: #b91c1c !important; }
+      tr, .egw-quote, li { break-inside: avoid; page-break-inside: avoid; }
+      h2, h3 { break-after: avoid; page-break-after: avoid; }
+      /* Print both prophet lists, not just the active tab */
+      #prophetsNT, #prophetsOT { display: block !important; }
+      #prophetsNT table, #prophetsOT table { break-inside: auto; page-break-inside: auto; }
+      /* Hide interactive-only bits */
+      #modal { display: none !important; }
+      .dark .bg-gray-800, .bg-gray-800, .dark .bg-gray-900, .dark .bg-blue-950,
+      .dark .bg-amber-950\/40, .dark .bg-sky-950\/40, .dark .bg-amber-950\/30 { background: #fff !important; }
+      /* Print the popup content as an appendix */
+      #printAppendix { display: block !important; break-before: page; page-break-before: always; }
+      #printAppendix article { break-inside: avoid; page-break-inside: avoid; margin-bottom: 1rem; padding: 0.75rem 1rem; border: 1px solid #d1d5db; border-radius: 0.5rem; }
+      #printAppendix h3 { font-weight: 700; margin-bottom: 0.5rem; }
+    }
   </style>
 </head>
 <body class="bg-white dark:bg-gray-900 text-black dark:text-white min-h-screen transition-colors duration-300">
@@ -70,7 +104,7 @@
   <header class="sticky top-0 z-50 bg-white/95 dark:bg-gray-800/95 backdrop-blur border-b border-gray-300 dark:border-gray-700">
     <div class="max-w-5xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
       <h1 class="text-xl md:text-2xl font-bold text-black dark:text-white">Gift of Prophecy</h1>
-      <div class="flex items-center gap-2 flex-wrap">
+      <div class="flex items-center gap-2 flex-wrap no-print">
         <div class="flex items-center gap-1 bg-black-700 dark:bg-gray-700 rounded-lg p-1">
           <button onclick="changeFont(-1)" class="px-2 py-1 rounded hover:bg-gray-300 dark:hover:bg-gray-600 text-sm font-medium text-gray-900 dark:text-white">A−</button>
           <span id="fontSizeDisplay" class="px-2 text-sm font-medium">16</span>
@@ -78,6 +112,9 @@
         </div>
         <button onclick="toggleTheme()" class="px-3 py-1.5 rounded-lg bg-black-700 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-sm font-medium flex items-center gap-1 text-gray-900 dark:text-white">
           <span id="themeIcon">🌙</span> <span id="themeText">Dark</span>
+        </button>
+        <button onclick="printLesson()" title="Print this lesson or save it as a PDF" class="px-3 py-1.5 rounded-lg bg-blue-800 hover:bg-blue-900 text-sm font-medium flex items-center gap-1" style="color:#ffffff !important;">
+          🖨️ Print / Save PDF
         </button>
       </div>
     </div>
@@ -106,7 +143,7 @@
         <div class="border border-gray-300 dark:border-gray-700 rounded-xl overflow-hidden">
           <button onclick="toggleAccordion(this)" class="w-full text-left px-5 py-4 bg-gray-100 dark:bg-gray-800 hover:bg-black-700 dark:hover:bg-gray-700 font-semibold flex justify-between items-center text-black dark:text-white">
             <span>Sabbath Afternoon (Oct 17) — Continuity of the Spirit</span>
-            <span class="text-xl">+</span>
+            <span class="text-xl no-print">+</span>
           </button>
           <div class="accordion-content dark:bg-black-850">
             <div class="px-5 py-4 space-y-2 text-sm md:text-base text-black dark:text-white">
@@ -120,7 +157,7 @@
                 “The testimony of Jesus is the spirit of prophecy.” — Revelation 19:10<br>
                 “Sanctification is not the work of a moment, an hour, a day, but of a lifetime.” — Ellen G. White, <em>The Acts of the Apostles</em>, p. 560
               </div>
-              <button onclick="openModal('heb1')" class="mt-2 text-blue-800 dark:text-blue-300 underline text-sm font-medium">View Hebrews 1:1-3</button>
+              <button onclick="openModal('heb1')" class="mt-2 text-blue-800 dark:text-blue-300 underline text-sm font-medium no-print">View Hebrews 1:1-3</button>
             </div>
           </div>
         </div>
@@ -129,7 +166,7 @@
         <div class="border border-gray-300 dark:border-gray-700 rounded-xl overflow-hidden">
           <button onclick="toggleAccordion(this)" class="w-full text-left px-5 py-4 bg-gray-100 dark:bg-gray-800 hover:bg-black-700 dark:hover:bg-gray-700 font-semibold flex justify-between items-center text-black dark:text-white">
             <span>Sunday (Oct 18) — Jesus as the Prophet</span>
-            <span class="text-xl">+</span>
+            <span class="text-xl no-print">+</span>
           </button>
           <div class="accordion-content dark:bg-black-850">
             <div class="px-5 py-4 space-y-2 text-black dark:text-white">
@@ -144,7 +181,7 @@
                 “It would be well for us to spend a thoughtful hour each day in contemplation of the life of Christ.” — <em>The Desire of Ages</em>, p. 83<br>
                 “Our growth in grace, our joy, our usefulness—all depend upon our union with Christ.” — Ellen G. White, <em>Steps to Christ</em>, p. 69
               </div>
-              <button onclick="openModal('jesusProphet')" class="mt-2 text-blue-800 dark:text-blue-300 underline text-sm font-medium">Compare OT Promise & NT Fulfillment</button>
+              <button onclick="openModal('jesusProphet')" class="mt-2 text-blue-800 dark:text-blue-300 underline text-sm font-medium no-print">Compare OT Promise & NT Fulfillment</button>
             </div>
           </div>
         </div>
@@ -153,7 +190,7 @@
         <div class="border border-gray-300 dark:border-gray-700 rounded-xl overflow-hidden">
           <button onclick="toggleAccordion(this)" class="w-full text-left px-5 py-4 bg-gray-100 dark:bg-gray-800 hover:bg-black-700 dark:hover:bg-gray-700 font-semibold flex justify-between items-center text-black dark:text-white">
             <span>Monday (Oct 19) — Apostles and Prophets</span>
-            <span class="text-xl">+</span>
+            <span class="text-xl no-print">+</span>
           </button>
           <div class="accordion-content dark:bg-black-850">
             <div class="px-5 py-4 space-y-2 text-black dark:text-white">
@@ -176,7 +213,7 @@
         <div class="border border-gray-300 dark:border-gray-700 rounded-xl overflow-hidden">
           <button onclick="toggleAccordion(this)" class="w-full text-left px-5 py-4 bg-gray-100 dark:bg-gray-800 hover:bg-black-700 dark:hover:bg-gray-700 font-semibold flex justify-between items-center text-black dark:text-white">
             <span>Tuesday (Oct 20) — Functions of NT Prophets</span>
-            <span class="text-xl">+</span>
+            <span class="text-xl no-print">+</span>
           </button>
           <div class="accordion-content dark:bg-black-850">
             <div class="px-5 py-4 space-y-2 text-black dark:text-white">
@@ -191,7 +228,7 @@
                 “The disciples were to teach what Christ had taught… Human teaching is shut out.” — <em>The Desire of Ages</em>, p. 826<br>
                 “There is no genuine sanctification except through obedience to the truth.” — Ellen G. White, <em>The Sanctified Life</em>, p. 10
               </div>
-              <button onclick="openModal('functions')" class="mt-2 text-blue-800 dark:text-blue-300 underline text-sm font-medium">OT vs NT Function Comparison</button>
+              <button onclick="openModal('functions')" class="mt-2 text-blue-800 dark:text-blue-300 underline text-sm font-medium no-print">OT vs NT Function Comparison</button>
             </div>
           </div>
         </div>
@@ -200,7 +237,7 @@
         <div class="border border-gray-300 dark:border-gray-700 rounded-xl overflow-hidden">
           <button onclick="toggleAccordion(this)" class="w-full text-left px-5 py-4 bg-gray-100 dark:bg-gray-800 hover:bg-black-700 dark:hover:bg-gray-700 font-semibold flex justify-between items-center text-black dark:text-white">
             <span>Wednesday (Oct 21) — Female Prophets & Young Leaders</span>
-            <span class="text-xl">+</span>
+            <span class="text-xl no-print">+</span>
           </button>
           <div class="accordion-content dark:bg-black-850">
             <div class="px-5 py-4 space-y-2 text-black dark:text-white">
@@ -222,7 +259,7 @@
         <div class="border border-gray-300 dark:border-gray-700 rounded-xl overflow-hidden">
           <button onclick="toggleAccordion(this)" class="w-full text-left px-5 py-4 bg-gray-100 dark:bg-gray-800 hover:bg-black-700 dark:hover:bg-gray-700 font-semibold flex justify-between items-center text-black dark:text-white">
             <span>Thursday (Oct 22) — False Prophets</span>
-            <span class="text-xl">+</span>
+            <span class="text-xl no-print">+</span>
           </button>
           <div class="accordion-content dark:bg-black-850">
             <div class="px-5 py-4 space-y-2 text-black dark:text-white">
@@ -236,7 +273,7 @@
                 “Look, O look to Jesus and live!” — <em>Fundamentals of Christian Education</em>, p. 179<br>
                 “Holiness is not rapture: it is an entire surrender of the will to God; it is living by every word that proceeds from the mouth of God.” — Ellen G. White, <em>The Acts of the Apostles</em>, p. 51
               </div>
-              <button onclick="openModal('armor')" class="mt-2 text-blue-800 dark:text-blue-300 underline text-sm font-medium">Armor of God Verses</button>
+              <button onclick="openModal('armor')" class="mt-2 text-blue-800 dark:text-blue-300 underline text-sm font-medium no-print">Armor of God Verses</button>
             </div>
           </div>
         </div>
@@ -245,7 +282,7 @@
         <div class="border border-gray-300 dark:border-gray-700 rounded-xl overflow-hidden">
           <button onclick="toggleAccordion(this)" class="w-full text-left px-5 py-4 bg-gray-100 dark:bg-gray-800 hover:bg-black-700 dark:hover:bg-gray-700 font-semibold flex justify-between items-center text-black dark:text-white">
             <span>Friday (Oct 23) — Keeping Jesus & His Word Central</span>
-            <span class="text-xl">+</span>
+            <span class="text-xl no-print">+</span>
           </button>
           <div class="accordion-content dark:bg-black-850">
             <div class="px-5 py-4 space-y-2 text-black dark:text-white">
@@ -304,6 +341,247 @@
       </div>
     </section>
 
+    <!-- Prophets Listed & Compared -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-bold text-black dark:text-white">👥 Prophets of the Old & New Testaments</h2>
+      <p class="text-black dark:text-white">Both lists are drawn from people Scripture explicitly calls prophets or describes as prophesying. Notice the shift: Old Testament prophets mostly called a nation back to covenant faithfulness and pointed forward to the Messiah; New Testament prophets announce that He has come, build up His church, and point to His return.</p>
+
+      <!-- Tabs -->
+      <div class="flex gap-2 no-print" role="tablist">
+        <button id="tabNT" onclick="showProphetTab('nt')" class="px-4 py-2 rounded-lg font-semibold bg-blue-800 hover:bg-blue-900" style="color:#ffffff !important;">New Testament</button>
+        <button id="tabOT" onclick="showProphetTab('ot')" class="px-4 py-2 rounded-lg font-semibold bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600">Old Testament</button>
+      </div>
+
+      <!-- New Testament Prophets -->
+      <div id="prophetsNT" class="bg-sky-50 dark:bg-sky-950/40 rounded-2xl p-5 border-2 border-sky-300 dark:border-sky-700">
+        <h3 class="font-bold text-lg mb-3 text-black dark:text-white">New Testament Prophets</h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm md:text-base border-collapse">
+            <thead>
+              <tr class="bg-blue-100 dark:bg-blue-900">
+                <th class="p-3 text-left border border-gray-400 dark:border-gray-600">Prophet</th>
+                <th class="p-3 text-left border border-gray-400 dark:border-gray-600">Key Verses</th>
+                <th class="p-3 text-left border border-gray-400 dark:border-gray-600">Key Message</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="p-3 border border-gray-300 dark:border-gray-600 font-medium">Jesus Christ — <em>The</em> Prophet</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Deut. 18:15; Acts 3:22-23; John 6:14; Luke 24:19; Heb. 1:1-3</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">God's final and fullest Word. Every earlier prophet pointed to Him; He is both the Prophet and the subject of all prophecy. <span class="jesus-words">“Repent, for the kingdom of heaven is at hand”</span> (Matt. 4:17).</td>
+              </tr>
+              <tr class="dark:bg-black-850">
+                <td class="p-3 border border-gray-300 dark:border-gray-600 font-medium">John the Baptist</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Luke 1:76; Matt. 11:9-11; John 1:29; Mark 1:1-8</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Prepare the way of the Lord; repent and be baptized; behold the Lamb of God. Jesus called him more than a prophet — the forerunner of the Messiah.</td>
+              </tr>
+              <tr>
+                <td class="p-3 border border-gray-300 dark:border-gray-600 font-medium">Zacharias (Zechariah)</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Luke 1:67-79</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Filled with the Spirit, he prophesied that God had visited His people and raised up a horn of salvation in David's house — the covenant promises are being kept.</td>
+              </tr>
+              <tr class="dark:bg-black-850">
+                <td class="p-3 border border-gray-300 dark:border-gray-600 font-medium">Simeon</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Luke 2:25-35</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">The infant Jesus is God's salvation, a light to the Gentiles and glory to Israel — yet also a sign that will be opposed, with a sword piercing Mary's soul (the cross foreseen).</td>
+              </tr>
+              <tr>
+                <td class="p-3 border border-gray-300 dark:border-gray-600 font-medium">Anna the prophetess</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Luke 2:36-38</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">An aged widow of constant prayer and fasting who gave thanks and spoke of the Child to all who looked for redemption in Jerusalem — witness through worship.</td>
+              </tr>
+              <tr class="dark:bg-black-850">
+                <td class="p-3 border border-gray-300 dark:border-gray-600 font-medium">Agabus</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Acts 11:27-30; Acts 21:10-11</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Foretold a great famine (moving the church to send relief) and Paul's arrest in Jerusalem. Predictive prophecy that prompted practical care and prepared believers for trial.</td>
+              </tr>
+              <tr>
+                <td class="p-3 border border-gray-300 dark:border-gray-600 font-medium">Prophets at Antioch</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Acts 13:1-3</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Barnabas, Simeon Niger, Lucius, Manaen, and Saul. While worshiping and fasting, the Spirit directed them to set apart Barnabas and Saul — prophecy guiding mission.</td>
+              </tr>
+              <tr class="dark:bg-black-850">
+                <td class="p-3 border border-gray-300 dark:border-gray-600 font-medium">Judas (Barsabas) & Silas</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Acts 15:22-32</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Carried the Jerusalem Council's decision and, as prophets, exhorted and strengthened the Gentile believers with many words — edification and comfort (1 Cor. 14:3) in action.</td>
+              </tr>
+              <tr>
+                <td class="p-3 border border-gray-300 dark:border-gray-600 font-medium">Philip's four daughters</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Acts 21:8-9; Joel 2:28; Acts 2:17-18</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Virgins who prophesied in Caesarea — living proof of Joel's promise that the Spirit would be poured out on sons <em>and</em> daughters. Their words are not recorded (non-canonical), yet their gift was genuine.</td>
+              </tr>
+              <tr class="dark:bg-black-850">
+                <td class="p-3 border border-gray-300 dark:border-gray-600 font-medium">Paul</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Acts 13:1; 1 Cor. 14:37; 2 Thess. 2:1-12; 1 Thess. 4:13-18</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Apostle and prophet. Christ crucified and risen, justification by faith, the coming apostasy, and the resurrection at the Lord's return. Insisted his words were the commandments of the Lord.</td>
+              </tr>
+              <tr>
+                <td class="p-3 border border-gray-300 dark:border-gray-600 font-medium">John the Revelator</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Rev. 1:1-3; Rev. 19:10; Rev. 22:6-10</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">The Revelation of Jesus Christ: the risen Lord walks among His churches, history ends in His victory, and <span class="jesus-words">“Surely I am coming quickly”</span> (Rev. 22:20). Called by the angel a fellow servant with the prophets.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="egw-quote text-sm">
+          “The Bible is its own expositor. Scripture is to be compared with scripture.” — Ellen G. White, <em>Education</em>, p. 190
+        </div>
+      </div>
+
+      <!-- Old Testament Prophets -->
+      <div id="prophetsOT" class="bg-amber-50 dark:bg-amber-950/40 rounded-2xl p-5 border-2 border-amber-300 dark:border-amber-700">
+        <h3 class="font-bold text-lg mb-3 text-black dark:text-white">Old Testament Prophets (selected)</h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm md:text-base border-collapse">
+            <thead>
+              <tr class="bg-amber-100 dark:bg-amber-900">
+                <th class="p-3 text-left border border-gray-400 dark:border-gray-600">Prophet</th>
+                <th class="p-3 text-left border border-gray-400 dark:border-gray-600">Key Verses</th>
+                <th class="p-3 text-left border border-gray-400 dark:border-gray-600">Key Message</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="p-3 border border-gray-300 dark:border-gray-600 font-medium">Moses</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Deut. 18:15-18; Deut. 34:10; Exod. 3; Num. 12:6-8</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Deliverance from Egypt, the covenant and law at Sinai, and the promise of a coming Prophet like himself. God spoke with him face to face.</td>
+              </tr>
+              <tr class="dark:bg-black-850">
+                <td class="p-3 border border-gray-300 dark:border-gray-600 font-medium">Samuel</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">1 Sam. 3:19-21; 1 Sam. 15:22-23; Acts 3:24</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Obedience is better than sacrifice. Established the kingdom, anointed Saul and David, and headed the line of prophets who foretold Christ's days.</td>
+              </tr>
+              <tr>
+                <td class="p-3 border border-gray-300 dark:border-gray-600 font-medium">Nathan</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">2 Sam. 7:12-16; 2 Sam. 12:1-14</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">The everlasting Davidic covenant (fulfilled in Jesus), and fearless rebuke of the king's sin — “You are the man.”</td>
+              </tr>
+              <tr class="dark:bg-black-850">
+                <td class="p-3 border border-gray-300 dark:border-gray-600 font-medium">Deborah</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Judges 4:4-9; Judges 5</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Prophetess and judge who called Barak to trust God's word for victory; her song praises the Lord who fights for His people.</td>
+              </tr>
+              <tr>
+                <td class="p-3 border border-gray-300 dark:border-gray-600 font-medium">Elijah</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">1 Kings 17–19; 1 Kings 18:21; Mal. 4:5-6; Matt. 17:1-13</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Stop wavering between two opinions — the Lord, He is God. Confronted Baal worship; his spirit returns in John the Baptist and the final-day message.</td>
+              </tr>
+              <tr class="dark:bg-black-850">
+                <td class="p-3 border border-gray-300 dark:border-gray-600 font-medium">Elisha</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">2 Kings 2:9-15; 2 Kings 5; 2 Kings 6:16-17</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">A double portion of the Spirit; miracles of mercy for widows, lepers, and foreigners (Naaman). Those with us are more than those with them.</td>
+              </tr>
+              <tr>
+                <td class="p-3 border border-gray-300 dark:border-gray-600 font-medium">Isaiah</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Isa. 6; Isa. 7:14; Isa. 9:6-7; Isa. 53; Isa. 11; Isa. 65:17</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">The Holy God, the virgin-born Immanuel, the Suffering Servant wounded for our transgressions, the Branch of Jesse, and new heavens and a new earth.</td>
+              </tr>
+              <tr class="dark:bg-black-850">
+                <td class="p-3 border border-gray-300 dark:border-gray-600 font-medium">Jeremiah</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Jer. 1:4-10; Jer. 23:5-6; Jer. 29:11-13; Jer. 31:31-34</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Judgment and exile for covenant breaking, yet a new covenant written on the heart and a righteous Branch — “The LORD Our Righteousness.”</td>
+              </tr>
+              <tr>
+                <td class="p-3 border border-gray-300 dark:border-gray-600 font-medium">Ezekiel</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Ezek. 1–3; Ezek. 33:11; Ezek. 36:26-27; Ezek. 37</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">God takes no pleasure in the death of the wicked — turn and live. A new heart and God's Spirit within; dry bones brought to life.</td>
+              </tr>
+              <tr class="dark:bg-black-850">
+                <td class="p-3 border border-gray-300 dark:border-gray-600 font-medium">Daniel</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Dan. 2; Dan. 7:13-14; Dan. 8:14; Dan. 9:24-27; Matt. 24:15</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">God rules over the rise and fall of empires. The Son of Man receives an everlasting kingdom; the Messiah's coming is timed; the sanctuary is cleansed. Jesus told us to read him.</td>
+              </tr>
+              <tr>
+                <td class="p-3 border border-gray-300 dark:border-gray-600 font-medium">Hosea</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Hos. 1–3; Hos. 6:6; Hos. 11:1-4; Hos. 14:1-4</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">God's faithful love for an unfaithful people, acted out in the prophet's own marriage. He desires mercy, not sacrifice; return and He will heal.</td>
+              </tr>
+              <tr class="dark:bg-black-850">
+                <td class="p-3 border border-gray-300 dark:border-gray-600 font-medium">Amos</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Amos 3:7; Amos 5:21-24; Amos 9:11-15</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">God reveals His secrets to His prophets. Religion without justice is rejected; let justice roll down like waters. David's fallen tent will be raised.</td>
+              </tr>
+              <tr>
+                <td class="p-3 border border-gray-300 dark:border-gray-600 font-medium">Jonah</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Jonah 1–4; Jonah 4:11; Matt. 12:39-41</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">God's mercy reaches even Nineveh; repentance averts judgment. Jesus made Jonah's three days a sign of His own death and resurrection.</td>
+              </tr>
+              <tr class="dark:bg-black-850">
+                <td class="p-3 border border-gray-300 dark:border-gray-600 font-medium">Micah</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Mic. 5:2; Mic. 6:8; Mic. 7:18-19</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">The Ruler from Bethlehem whose goings forth are from everlasting. Do justly, love mercy, walk humbly. God casts our sins into the depths of the sea.</td>
+              </tr>
+              <tr>
+                <td class="p-3 border border-gray-300 dark:border-gray-600 font-medium">Huldah</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">2 Kings 22:14-20; 2 Chron. 34:22-28</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Prophetess consulted by King Josiah when the Book of the Law was found; she confirmed God's word of judgment and promised peace to the humble king — sparking national reform.</td>
+              </tr>
+              <tr class="dark:bg-black-850">
+                <td class="p-3 border border-gray-300 dark:border-gray-600 font-medium">Malachi</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Mal. 3:1-3; Mal. 3:8-10; Mal. 4:1-6</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">The Lord will suddenly come to His temple, preceded by a messenger. Return to Me and I will return to you. The last OT word points to Elijah and the great day of the Lord.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="egw-quote text-sm">
+          “The Holy Scriptures are to be accepted as an authoritative, infallible revelation of His will.” — Ellen G. White, <em>The Great Controversy</em>, p. vii
+        </div>
+      </div>
+
+      <!-- Side-by-side comparison -->
+      <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl p-5 border border-gray-300 dark:border-gray-700">
+        <h3 class="font-bold text-lg mb-3 text-black dark:text-white">What Stays the Same — and What Changes</h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm md:text-base border-collapse">
+            <thead>
+              <tr class="bg-blue-100 dark:bg-blue-900">
+                <th class="p-3 text-left border border-gray-400 dark:border-gray-600">Compare</th>
+                <th class="p-3 text-left border border-gray-400 dark:border-gray-600">Old Testament Prophets</th>
+                <th class="p-3 text-left border border-gray-400 dark:border-gray-600">New Testament Prophets</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="p-3 border border-gray-300 dark:border-gray-600 font-medium">Direction of hope</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Looking <em>forward</em> to a Messiah who would come (Isa. 53; Mic. 5:2; Dan. 9:25)</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Announcing He <em>has</em> come, and looking forward to His <em>return</em> (Luke 2:30; Acts 1:11; Rev. 22:20)</td>
+              </tr>
+              <tr class="dark:bg-black-850">
+                <td class="p-3 border border-gray-300 dark:border-gray-600 font-medium">Typical message</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">“Return to the Lord” — covenant rebuke, judgment, restoration (Jer. 3:12; Hos. 14:1; Mal. 3:7)</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">“Be built up in Christ” — edification, exhortation, comfort (1 Cor. 14:3; Acts 15:32)</td>
+              </tr>
+              <tr>
+                <td class="p-3 border border-gray-300 dark:border-gray-600 font-medium">Audience</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Kings and the nation of Israel/Judah; sometimes surrounding nations (Jonah, Obadiah)</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Local churches and the worldwide body of Christ, Jew and Gentile (Eph. 2:19-20; Acts 13:1)</td>
+              </tr>
+              <tr class="dark:bg-black-850">
+                <td class="p-3 border border-gray-300 dark:border-gray-600 font-medium">Who prophesied</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Mostly a few called individuals; women such as Miriam, Deborah, and Huldah included</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Spirit poured out on all flesh — sons and daughters, young and old (Joel 2:28; Acts 2:17; Acts 21:9)</td>
+              </tr>
+              <tr>
+                <td class="p-3 border border-gray-300 dark:border-gray-600 font-medium">Canonical writings</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Many wrote Scripture (Isaiah, Jeremiah, the Twelve, etc.)</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">A few wrote Scripture (Paul, John); many did not (Agabus, Anna, Philip's daughters) — their gift was still real</td>
+              </tr>
+              <tr class="dark:bg-black-850">
+                <td class="p-3 border border-gray-300 dark:border-gray-600 font-medium">Test of a true prophet</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Fulfilled predictions and loyalty to the Lord (Deut. 13:1-5; Deut. 18:20-22; Isa. 8:20)</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600">Same tests, plus: confesses Jesus come in the flesh, good fruit, agreement with apostolic teaching (1 John 4:1-3; Matt. 7:15-20; Gal. 1:8)</td>
+              </tr>
+              <tr>
+                <td class="p-3 border border-gray-300 dark:border-gray-600 font-medium">Unchanging</td>
+                <td class="p-3 border border-gray-300 dark:border-gray-600" colspan="2">Same Holy Spirit (2 Pet. 1:21; 1 Cor. 12:4-6) • Same Jesus at the center (Rev. 19:10; Luke 24:27) • Same goal: a holy people ready to meet their God (Amos 4:12; 1 Thess. 5:23)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
     <!-- Jesus Central to Prophecy -->
     <section class="space-y-6">
       <h2 class="text-2xl font-bold text-black dark:text-white">✝️ Jesus & His Comings Are Central to All Prophecy</h2>
@@ -321,7 +599,7 @@
           <div class="egw-quote text-sm">
             “The sacrifice of Christ as an atonement for sin is the great truth around which all other truths cluster.” — Ellen G. White
           </div>
-          <button onclick="openModal('firstComing')" class="mt-3 text-blue-800 dark:text-blue-300 underline text-sm font-medium">Study First Coming Verses</button>
+          <button onclick="openModal('firstComing')" class="mt-3 text-blue-800 dark:text-blue-300 underline text-sm font-medium no-print">Study First Coming Verses</button>
         </div>
         <div class="bg-sky-50 dark:bg-sky-950/40 rounded-xl p-5 border-2 border-sky-300 dark:border-sky-700">
           <h3 class="font-bold text-lg mb-2 text-black dark:text-white">Second Coming</h3>
@@ -334,7 +612,7 @@
           <div class="egw-quote text-sm">
             “Christ crucified, Christ risen, Christ ascended into the heavens, Christ coming again, should so soften, gladden, and fill the mind…” — Ellen G. White, <em>Evangelism</em>, p. 185
           </div>
-          <button onclick="openModal('secondComing')" class="mt-3 text-blue-800 dark:text-blue-300 underline text-sm font-medium">Study Second Coming Verses</button>
+          <button onclick="openModal('secondComing')" class="mt-3 text-blue-800 dark:text-blue-300 underline text-sm font-medium no-print">Study Second Coming Verses</button>
         </div>
       </div>
     </section>
@@ -342,7 +620,7 @@
     <!-- Thought-Provoking Questions -->
     <section>
       <h2 class="text-2xl font-bold mb-4 text-black dark:text-white">💭 Questions to Guide Your Thinking</h2>
-      <p class="mb-4 text-black dark:text-white">Click any question to open a focused study popup with related Bible verses. Words of Jesus appear in <span class="jesus-words">red</span>.</p>
+      <p class="mb-4 text-black dark:text-white no-print">Click any question to open a focused study popup with related Bible verses. Words of Jesus appear in <span class="jesus-words">red</span>.</p>
       <div class="grid sm:grid-cols-2 gap-3">
         <button onclick="openModal('q1')" class="text-left p-4 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 hover:shadow-md transition text-black dark:text-white">
           <span class="font-semibold">1. How does recognizing Jesus as “the Prophet” change how we read all earlier prophets?</span>
@@ -375,6 +653,12 @@
         <li>Abide in Christ and invite the Holy Spirit to work on, in, and through you.</li>
         <li>Share one insight with someone else this week.</li>
       </ol>
+    </section>
+
+    <!-- Print-only appendix: all study popups printed in full (filled by script) -->
+    <section id="printAppendix">
+      <h2 class="text-2xl font-bold mb-4">📚 Study Notes & Verse References</h2>
+      <div id="printAppendixContent"></div>
     </section>
   </main>
 
@@ -532,6 +816,58 @@
     document.getElementById('modal').addEventListener('click', function(e) {
       if (e.target === this) closeModal();
     });
+
+    // Prophet list tabs (NT / OT)
+    function showProphetTab(which) {
+      const nt = which === 'nt';
+      document.getElementById('prophetsNT').classList.toggle('hidden', !nt);
+      document.getElementById('prophetsOT').classList.toggle('hidden', nt);
+      const active = 'bg-blue-800 hover:bg-blue-900';
+      const inactive = 'bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600';
+      const tabNT = document.getElementById('tabNT'), tabOT = document.getElementById('tabOT');
+      tabNT.className = 'px-4 py-2 rounded-lg font-semibold ' + (nt ? active : inactive);
+      tabOT.className = 'px-4 py-2 rounded-lg font-semibold ' + (nt ? inactive : active);
+      tabNT.style.color = nt ? '#ffffff' : '';
+      tabOT.style.color = nt ? '' : '#ffffff';
+    }
+    showProphetTab('nt');
+
+    // ===== PRINT / SAVE AS PDF =====
+    // Fill the print-only appendix with every study popup so nothing is lost on paper.
+    (function buildPrintAppendix() {
+      const order = ['heb1', 'jesusProphet', 'functions', 'armor', 'firstComing', 'secondComing', 'q1', 'q2', 'q3', 'q4', 'q5', 'q6'];
+      document.getElementById('printAppendixContent').innerHTML = order
+        .map(id => `<article><h3>${modalData[id].title}</h3>${modalData[id].body}</article>`)
+        .join('');
+    })();
+
+    let printState = null;
+    function preparePrint() {
+      if (printState) return;
+      printState = {
+        wasDark: document.documentElement.classList.contains('dark'),
+        openAccordions: Array.from(document.querySelectorAll('.accordion-content.open'))
+      };
+      document.documentElement.classList.remove('dark');          // always print light
+      document.querySelectorAll('.accordion-content').forEach(el => el.classList.add('open'));
+      closeModal();
+    }
+    function restoreAfterPrint() {
+      if (!printState) return;
+      document.querySelectorAll('.accordion-content').forEach(el => {
+        if (!printState.openAccordions.includes(el)) el.classList.remove('open');
+      });
+      if (printState.wasDark) document.documentElement.classList.add('dark');
+      printState = null;
+    }
+    function printLesson() {
+      preparePrint();
+      // Give the browser a moment to re-render the expanded layout before opening the dialog.
+      setTimeout(() => window.print(), 150);
+    }
+    // Also handle Ctrl+P / Cmd+P and the browser's own print menu
+    window.addEventListener('beforeprint', preparePrint);
+    window.addEventListener('afterprint', restoreAfterPrint);
   </script>
 </body>
 </html>
