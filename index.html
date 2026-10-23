@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Gift of Prophecy: New Testament Prophets | Lesson 4</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#1e40af',
+            secondary: '#7c3aed',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    :root { --font-size: 16px; }
+    body { font-size: var(--font-size); }
+    .modal { transition: opacity 0.3s ease, visibility 0.3s ease; }
+    .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+    .accordion-content.open { max-height: 2000px; }
+  </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen transition-colors duration-300">
+  <!-- Header Controls -->
+  <header class="sticky top-0 z-50 bg-white/90 dark:bg-gray-800/90 backdrop-blur border-b border-gray-200 dark:border-gray-700">
+    <div class="max-w-5xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <h1 class="text-xl md:text-2xl font-bold text-primary dark:text-blue-400">Gift of Prophecy</h1>
+      <div class="flex items-center gap-2 flex-wrap">
+        <!-- Font Size -->
+        <div class="flex items-center gap-1 bg-gray-100 dark:bg-gray-700 rounded-lg p-1">
+          <button onclick="changeFont(-1)" class="px-2 py-1 rounded hover:bg-gray-200 dark:hover:bg-gray-600 text-sm font-medium">A−</button>
+          <span id="fontSizeDisplay" class="px-2 text-sm">16</span>
+          <button onclick="changeFont(1)" class="px-2 py-1 rounded hover:bg-gray-200 dark:hover:bg-gray-600 text-sm font-medium">A+</button>
+        </div>
+        <!-- Theme Toggle -->
+        <button onclick="toggleTheme()" class="px-3 py-1.5 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-sm font-medium flex items-center gap-1">
+          <span id="themeIcon">🌙</span> <span id="themeText">Dark</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-4 py-6 md:py-8 space-y-8">
+    <!-- Intro -->
+    <section class="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950 rounded-2xl p-6 md:p-8 border border-blue-100 dark:border-blue-900">
+      <p class="text-sm font-semibold text-primary dark:text-blue-400 uppercase tracking-wide">Sabbath School • 4th Quarter 2026 • Lesson 4</p>
+      <h2 class="text-2xl md:text-3xl font-bold mt-2 mb-4">New Testament Prophets</h2>
+      <p class="text-lg leading-relaxed">October 17–23 • The same Holy Spirit who inspired Old Testament prophets continues in the New Testament, always centering Jesus Christ—His first coming, ministry, death, resurrection, and second coming.</p>
+      <div class="mt-4 p-4 bg-white/70 dark:bg-gray-800/70 rounded-xl">
+        <p class="font-medium">Memory Text</p>
+        <p class="italic mt-1">“There are diversities of gifts, but the same Spirit. There are differences of ministries, but the same Lord. And there are diversities of activities, but it is the same God who works all in all.” — 1 Corinthians 12:4-6</p>
+      </div>
+    </section>
+
+    <!-- Daily Key Points -->
+    <section>
+      <h2 class="text-2xl font-bold mb-4 flex items-center gap-2">📅 Key Points by Day</h2>
+      <div class="space-y-3" id="dailyAccordion">
+        <!-- Sabbath -->
+        <div class="border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
+          <button onclick="toggleAccordion(this)" class="w-full text-left px-5 py-4 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 font-semibold flex justify-between items-center">
+            <span>Sabbath Afternoon (Oct 17) — Continuity of the Spirit</span>
+            <span class="text-xl">+</span>
+          </button>
+          <div class="accordion-content bg-white dark:bg-gray-850">
+            <div class="px-5 py-4 space-y-2 text-sm md:text-base">
+              <ul class="list-disc pl-5 space-y-1">
+                <li>Same Holy Spirit is the source of inspiration in both Testaments.</li>
+                <li>Christ is the center of prophetic messages (Hebrews 1:1-3).</li>
+                <li>Topics: what NT prophets did, who they were, comparison with apostles, false prophets.</li>
+              </ul>
+              <button onclick="openModal('heb1')" class="mt-2 text-primary dark:text-blue-400 underline text-sm">View Hebrews 1:1-3</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sunday -->
+        <div class="border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
+          <button onclick="toggleAccordion(this)" class="w-full text-left px-5 py-4 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 font-semibold flex justify-between items-center">
+            <span>Sunday (Oct 18) — Jesus as the Prophet</span>
+            <span class="text-xl">+</span>
+          </button>
+          <div class="accordion-content bg-white dark:bg-gray-850">
+            <div class="px-5 py-4 space-y-2">
+              <ul class="list-disc pl-5 space-y-1">
+                <li>Moses predicted a Prophet like himself (Deut. 18:15 → Acts 3:22; John 6:14).</li>
+                <li>Jesus is the Messiah all OT prophets pointed to (Matt. 16:13-16; Luke 24:13-35).</li>
+                <li>He is the divine Creator Word (John 1:1-5), not a mere human prophet.</li>
+                <li>Prophecy is light until the Morning Star rises (2 Pet. 1:19).</li>
+              </ul>
+              <button onclick="openModal('jesusProphet')" class="mt-2 text-primary dark:text-blue-400 underline text-sm">Compare OT Promise & NT Fulfillment</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Monday -->
+        <div class="border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
+          <button onclick="toggleAccordion(this)" class="w-full text-left px-5 py-4 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 font-semibold flex justify-between items-center">
+            <span>Monday (Oct 19) — Apostles and Prophets</span>
+            <span class="text-xl">+</span>
+          </button>
+          <div class="accordion-content bg-white dark:bg-gray-850">
+            <div class="px-5 py-4 space-y-2">
+              <ul class="list-disc pl-5 space-y-1">
+                <li>Apostles are “ones sent forth”; they share the same inspiration level as prophets (Eph. 2:20; 3:1-5).</li>
+                <li>Prophecy not limited to apostles (Acts 15:32).</li>
+                <li>Jesus’ life, death, resurrection, high-priestly ministry, and return are central.</li>
+                <li>The Bible is the only official record and final authority.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tuesday -->
+        <div class="border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
+          <button onclick="toggleAccordion(this)" class="w-full text-left px-5 py-4 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 font-semibold flex justify-between items-center">
+            <span>Tuesday (Oct 20) — Functions of NT Prophets</span>
+            <span class="text-xl">+</span>
+          </button>
+          <div class="accordion-content bg-white dark:bg-gray-850">
+            <div class="px-5 py-4 space-y-2">
+              <ul class="list-disc pl-5 space-y-1">
+                <li>Edification, exhortation, and comfort (1 Cor. 14:3).</li>
+                <li>Equip saints, edify the body, bring maturity in Christ (Eph. 4:11-13).</li>
+                <li>Encourage in persecution (Acts 15:32; 1 Cor. 14:31).</li>
+                <li>Words are faithful and true because Jesus is Lord of the prophets (Rev. 22:6).</li>
+              </ul>
+              <button onclick="openModal('functions')" class="mt-2 text-primary dark:text-blue-400 underline text-sm">OT vs NT Function Comparison</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Wednesday -->
+        <div class="border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
+          <button onclick="toggleAccordion(this)" class="w-full text-left px-5 py-4 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 font-semibold flex justify-between items-center">
+            <span>Wednesday (Oct 21) — Female Prophets & Young Leaders</span>
+            <span class="text-xl">+</span>
+          </button>
+          <div class="accordion-content bg-white dark:bg-gray-850">
+            <div class="px-5 py-4 space-y-2">
+              <ul class="list-disc pl-5 space-y-1">
+                <li>Anna the prophetess (Luke 2:36-38).</li>
+                <li>Philip’s four daughters who prophesied (Acts 21:9) — non-canonical.</li>
+                <li>Mentoring of Timothy and Titus.</li>
+                <li>Young, old, male, female can all serve.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Thursday -->
+        <div class="border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
+          <button onclick="toggleAccordion(this)" class="w-full text-left px-5 py-4 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 font-semibold flex justify-between items-center">
+            <span>Thursday (Oct 22) — False Prophets</span>
+            <span class="text-xl">+</span>
+          </button>
+          <div class="accordion-content bg-white dark:bg-gray-850">
+            <div class="px-5 py-4 space-y-2">
+              <ul class="list-disc pl-5 space-y-1">
+                <li>False christs and prophets will show great signs and wonders (Matt. 24:24).</li>
+                <li>Known by their fruits; wolves in sheep’s clothing (Matt. 7:15-20).</li>
+                <li>Protection: full armor of God (Eph. 6:10-18).</li>
+              </ul>
+              <button onclick="openModal('armor')" class="mt-2 text-primary dark:text-blue-400 underline text-sm">Armor of God Verses</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Friday -->
+        <div class="border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
+          <button onclick="toggleAccordion(this)" class="w-full text-left px-5 py-4 bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 font-semibold flex justify-between items-center">
+            <span>Friday (Oct 23) — Keeping Jesus & His Word Central</span>
+            <span class="text-xl">+</span>
+          </button>
+          <div class="accordion-content bg-white dark:bg-gray-850">
+            <div class="px-5 py-4 space-y-2">
+              <ul class="list-disc pl-5 space-y-1">
+                <li>Prophets lead people to knowledge of God and faithful relationship with Him.</li>
+                <li>All true prophetic ministry must teach what Christ taught.</li>
+                <li>The Bible remains the greater light.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OT vs NT Comparison -->
+    <section class="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-200 dark:border-gray-700">
+      <h2 class="text-2xl font-bold mb-4">⚖️ Old Testament vs New Testament Prophets</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm md:text-base border-collapse">
+          <thead>
+            <tr class="bg-gray-100 dark:bg-gray-700">
+              <th class="p-3 text-left border">Aspect</th>
+              <th class="p-3 text-left border">Old Testament</th>
+              <th class="p-3 text-left border">New Testament</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="p-3 border font-medium">Source</td>
+              <td class="p-3 border">Holy Spirit (same)</td>
+              <td class="p-3 border">Holy Spirit (same) — 1 Cor 12:4-6</td>
+            </tr>
+            <tr class="bg-gray-50 dark:bg-gray-750">
+              <td class="p-3 border font-medium">Central Focus</td>
+              <td class="p-3 border">Coming Messiah, covenant with Israel, judgment & restoration</td>
+              <td class="p-3 border">Jesus Himself — first coming fulfilled, second coming awaited (Luke 24:44-47; Rev 22:6)</td>
+            </tr>
+            <tr>
+              <td class="p-3 border font-medium">Primary Role</td>
+              <td class="p-3 border">Foretell, warn nation, call to repentance</td>
+              <td class="p-3 border">Edify, exhort, comfort the church; equip saints (1 Cor 14:3; Eph 4:11-13)</td>
+            </tr>
+            <tr class="bg-gray-50 dark:bg-gray-750">
+              <td class="p-3 border font-medium">Audience</td>
+              <td class="p-3 border">Primarily national Israel</td>
+              <td class="p-3 border">The body of Christ / church (Eph 2:20)</td>
+            </tr>
+            <tr>
+              <td class="p-3 border font-medium">Authority Record</td>
+              <td class="p-3 border">Canonical books</td>
+              <td class="p-3 border">Canonical writings + non-canonical true prophets (Acts 21:9)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Jesus Central to Prophecy -->
+    <section class="space-y-6">
+      <h2 class="text-2xl font-bold">✝️ Jesus & His Comings Are Central to All Prophecy</h2>
+      <p class="text-lg">Both the first and second comings of Jesus form the heart of biblical prophecy from Genesis to Revelation.</p>
+
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="bg-blue-50 dark:bg-blue-950/50 rounded-xl p-5 border border-blue-200 dark:border-blue-800">
+          <h3 class="font-bold text-lg mb-2">First Coming</h3>
+          <ul class="list-disc pl-5 space-y-1 text-sm md:text-base">
+            <li>Fulfillment of Messianic prophecies (Isaiah 53; Micah 5:2; etc.)</li>
+            <li>Luke 24:25-27, 44-47 — Jesus explained Himself from all the prophets</li>
+            <li>John 5:39 — Scriptures testify of Him</li>
+            <li>Hebrews 1:1-3 — God spoke through Son</li>
+          </ul>
+          <button onclick="openModal('firstComing')" class="mt-3 text-primary dark:text-blue-400 underline text-sm">Study First Coming Verses</button>
+        </div>
+        <div class="bg-purple-50 dark:bg-purple-950/50 rounded-xl p-5 border border-purple-200 dark:border-purple-800">
+          <h3 class="font-bold text-lg mb-2">Second Coming</h3>
+          <ul class="list-disc pl-5 space-y-1 text-sm md:text-base">
+            <li>OT prophets foresaw ultimate restoration (Isaiah 11; Daniel 2 & 7)</li>
+            <li>NT prophets and apostles point to His return (Matt 24; 1 Thess 4; Rev 19)</li>
+            <li>Revelation 22:6 — Lord God of the holy prophets</li>
+            <li>The gift continues until the Morning Star rises (2 Pet 1:19)</li>
+          </ul>
+          <button onclick="openModal('secondComing')" class="mt-3 text-primary dark:text-blue-400 underline text-sm">Study Second Coming Verses</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Thought-Provoking Questions -->
+    <section>
+      <h2 class="text-2xl font-bold mb-4">💭 Questions to Guide Your Thinking</h2>
+      <p class="mb-4 text-gray-700 dark:text-gray-300">Click any question to open a focused study popup with related Bible verses.</p>
+      <div class="grid sm:grid-cols-2 gap-3">
+        <button onclick="openModal('q1')" class="text-left p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:shadow-md transition">
+          <span class="font-semibold">1. How does recognizing Jesus as “the Prophet” change how we read all earlier prophets?</span>
+        </button>
+        <button onclick="openModal('q2')" class="text-left p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:shadow-md transition">
+          <span class="font-semibold">2. Why is the church-edifying role of NT prophets different from the primarily national focus of many OT prophets?</span>
+        </button>
+        <button onclick="openModal('q3')" class="text-left p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:shadow-md transition">
+          <span class="font-semibold">3. How do the first and second comings together form the single storyline of biblical prophecy?</span>
+        </button>
+        <button onclick="openModal('q4')" class="text-left p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:shadow-md transition">
+          <span class="font-semibold">4. What practical difference does it make that the same Spirit who spoke through Isaiah now speaks through NT prophets about the risen Christ?</span>
+        </button>
+        <button onclick="openModal('q5')" class="text-left p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:shadow-md transition">
+          <span class="font-semibold">5. How does the warning about false prophets in Matthew 24 connect to the need to keep Jesus’ first and second comings central?</span>
+        </button>
+        <button onclick="openModal('q6')" class="text-left p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:shadow-md transition">
+          <span class="font-semibold">6. In what ways can non-canonical prophets (like Philip’s daughters) still point people to the same Christ the canonical prophets revealed?</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Reflection Guide -->
+    <section class="bg-amber-50 dark:bg-amber-950/40 rounded-2xl p-6 border border-amber-200 dark:border-amber-800">
+      <h2 class="text-xl font-bold mb-3">📖 Personal Learning Guide</h2>
+      <ol class="list-decimal pl-5 space-y-2">
+        <li>Read one day’s section and the related Bible passages.</li>
+        <li>Compare at least one OT prophecy with its NT fulfillment in Jesus.</li>
+        <li>Ask: “How does this point to Christ’s first coming or prepare me for His second?”</li>
+        <li>Pray for the Holy Spirit to keep Jesus and His Word at the center of your understanding.</li>
+        <li>Share one insight with someone else this week.</li>
+      </ol>
+    </section>
+  </main>
+
+  <!-- Modal -->
+  <div id="modal" class="modal fixed inset-0 z-50 flex items-center justify-center bg-black/50 opacity-0 invisible p-4">
+    <div class="bg-white dark:bg-gray-800 rounded-2xl max-w-lg w-full max-h-[80vh] overflow-y-auto p-6 shadow-2xl relative">
+      <button onclick="closeModal()" class="absolute top-3 right-3 text-2xl leading-none hover:text-red-500">&times;</button>
+      <div id="modalContent" class="prose dark:prose-invert max-w-none"></div>
+    </div>
+  </div>
+
+  <footer class="text-center py-8 text-sm text-gray-500 dark:text-gray-400">
+    Sabbath School Lesson 4 • New Testament Prophets • Study to prepare for Sabbath, October 24
+  </footer>
+
+  <script>
+    // Theme
+    function toggleTheme() {
+      const html = document.documentElement;
+      const isDark = html.classList.toggle('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      document.getElementById('themeIcon').textContent = isDark ? '☀️' : '🌙';
+      document.getElementById('themeText').textContent = isDark ? 'Light' : 'Dark';
+    }
+    if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+      document.getElementById('themeIcon').textContent = '☀️';
+      document.getElementById('themeText').textContent = 'Light';
+    }
+
+    // Font size
+    let fontSize = parseInt(localStorage.getItem('fontSize')) || 16;
+    function applyFont() {
+      document.documentElement.style.setProperty('--font-size', fontSize + 'px');
+      document.getElementById('fontSizeDisplay').textContent = fontSize;
+      localStorage.setItem('fontSize', fontSize);
+    }
+    function changeFont(delta) {
+      fontSize = Math.min(24, Math.max(12, fontSize + delta));
+      applyFont();
+    }
+    applyFont();
+
+    // Accordion
+    function toggleAccordion(btn) {
+      const content = btn.nextElementSibling;
+      const icon = btn.querySelector('span:last-child');
+      content.classList.toggle('open');
+      icon.textContent = content.classList.contains('open') ? '−' : '+';
+    }
+
+    // Modal content library
+    const modalData = {
+      heb1: {
+        title: 'Hebrews 1:1-3',
+        body: `<p class="italic">“God, who at various times and in various ways spoke in time past to the fathers by the prophets, has in these last days spoken to us by His Son, whom He has appointed heir of all things, through whom also He made the worlds; who being the brightness of His glory and the express image of His person, and upholding all things by the word of His power, when He had by Himself purged our sins, sat down at the right hand of the Majesty on high.”</p>
+               <p class="mt-3">The same God who spoke through OT prophets now speaks climactically through Jesus.</p>`
+      },
+      jesusProphet: {
+        title: 'OT Promise Fulfilled in Jesus',
+        body: `<p><strong>Deuteronomy 18:15</strong> — “The Lord your God will raise up for you a Prophet like me from your midst… Him you shall hear.”</p>
+               <p class="mt-2"><strong>Acts 3:22</strong> — Peter applies this directly to Jesus.</p>
+               <p class="mt-2"><strong>Luke 24:27</strong> — “And beginning at Moses and all the Prophets, He expounded to them in all the Scriptures the things concerning Himself.”</p>
+               <p class="mt-2"><strong>John 1:1-3</strong> — The Word who created all things became flesh.</p>`
+      },
+      functions: {
+        title: 'Functions Compared',
+        body: `<p><strong>OT example (Isaiah 1:16-17)</strong> — Call to wash, cease evil, seek justice for the nation.</p>
+               <p class="mt-2"><strong>NT (1 Corinthians 14:3)</strong> — “He who prophesies speaks edification and exhortation and comfort to men.”</p>
+               <p class="mt-2"><strong>Ephesians 4:12-13</strong> — Equipping saints until we all come to the unity of the faith and the knowledge of the Son of God.</p>
+               <p class="mt-2">Both point to God, but NT focuses on building the body of Christ around the risen Savior.</p>`
+      },
+      armor: {
+        title: 'Ephesians 6:10-18 — Armor of God',
+        body: `<ul class="list-disc pl-5 space-y-1">
+                <li>Belt of truth</li>
+                <li>Breastplate of righteousness</li>
+                <li>Feet shod with the gospel of peace</li>
+                <li>Shield of faith</li>
+                <li>Helmet of salvation</li>
+                <li>Sword of the Spirit (Word of God)</li>
+                <li>Praying always in the Spirit</li>
+              </ul>
+              <p class="mt-3">These protect us from deception about false christs and keep us centered on the true Jesus.</p>`
+      },
+      firstComing: {
+        title: 'First Coming — Jesus at the Center',
+        body: `<p><strong>Isaiah 53:5</strong> — “He was wounded for our transgressions…”</p>
+               <p class="mt-2"><strong>Micah 5:2</strong> — Bethlehem prophecy</p>
+               <p class="mt-2"><strong>Luke 24:44</strong> — “All things must be fulfilled which were written in the Law of Moses and the Prophets and the Psalms concerning Me.”</p>
+               <p class="mt-2"><strong>John 5:39</strong> — “These are they which testify of Me.”</p>
+               <p class="mt-2"><strong>Hebrews 1:1-3</strong> — God has spoken in these last days by His Son.</p>`
+      },
+      secondComing: {
+        title: 'Second Coming — Still Central',
+        body: `<p><strong>Daniel 7:13-14</strong> — Son of Man coming with the clouds</p>
+               <p class="mt-2"><strong>Matthew 24:30-31</strong> — Sign of the Son of Man; angels gather the elect</p>
+               <p class="mt-2"><strong>1 Thessalonians 4:16-17</strong> — Lord Himself will descend</p>
+               <p class="mt-2"><strong>Revelation 19:11-16</strong> — Faithful and True on a white horse</p>
+               <p class="mt-2"><strong>2 Peter 1:19</strong> — Until the day dawns and the morning star rises</p>
+               <p class="mt-2">OT prophets saw the ultimate victory; NT prophets keep the church watching for the same Jesus.</p>`
+      },
+      q1: {
+        title: 'Question 1 Reflection',
+        body: `<p>How does recognizing Jesus as “the Prophet” change how we read all earlier prophets?</p>
+               <p class="mt-3 italic">Consider: Deuteronomy 18:15; Acts 3:22; Luke 24:27; John 1:1-5; Hebrews 1:1-3.</p>
+               <p class="mt-2">All previous prophets were pointing forward to Him. He is both the ultimate Prophet and the subject of their prophecy.</p>`
+      },
+      q2: {
+        title: 'Question 2 Reflection',
+        body: `<p>Why is the church-edifying role of NT prophets different from the primarily national focus of many OT prophets?</p>
+               <p class="mt-3">1 Corinthians 14:3; Ephesians 4:11-13; Acts 15:32 vs. the national covenant context of Isaiah, Jeremiah, etc.</p>
+               <p class="mt-2">After the cross and Pentecost the people of God are the multi-ethnic body of Christ. Prophecy now builds that body around the risen Lord.</p>`
+      },
+      q3: {
+        title: 'Question 3 Reflection',
+        body: `<p>How do the first and second comings together form the single storyline of biblical prophecy?</p>
+               <p class="mt-3">First coming: fulfillment of suffering Servant and Messiah prophecies.<br>Second coming: fulfillment of the King and Judge prophecies.</p>
+               <p class="mt-2">Luke 24:44-47 + Matthew 24 + Revelation 19 show one continuous plan centered on Jesus.</p>`
+      },
+      q4: {
+        title: 'Question 4 Reflection',
+        body: `<p>What practical difference does it make that the same Spirit who spoke through Isaiah now speaks through NT prophets about the risen Christ?</p>
+               <p class="mt-3">1 Corinthians 12:4-6; Revelation 22:6; 2 Peter 1:19-21.</p>
+               <p class="mt-2">It guarantees harmony. Any true prophetic message will exalt the same Jesus the OT Scriptures revealed and the NT apostles preached.</p>`
+      },
+      q5: {
+        title: 'Question 5 Reflection',
+        body: `<p>How does the warning about false prophets in Matthew 24 connect to the need to keep Jesus’ first and second comings central?</p>
+               <p class="mt-3">Matthew 24:23-24; Matthew 7:15-20; Ephesians 6:10-18.</p>
+               <p class="mt-2">False prophets often distort either the finished work of the first coming or the nature and timing of the second. The armor and the Word keep us anchored to the true Christ.</p>`
+      },
+      q6: {
+        title: 'Question 6 Reflection',
+        body: `<p>In what ways can non-canonical prophets (like Philip’s daughters) still point people to the same Christ the canonical prophets revealed?</p>
+               <p class="mt-3">Acts 21:9; Luke 2:36-38; 1 Corinthians 14:3; Ephesians 4:11-13.</p>
+               <p class="mt-2">Their messages of edification, exhortation, and comfort must align with Scripture and exalt Jesus. They do not add new doctrine but strengthen the church in the same truth.</p>`
+      }
+    };
+
+    function openModal(id) {
+      const data = modalData[id];
+      if (!data) return;
+      document.getElementById('modalContent').innerHTML = `<h3 class="text-xl font-bold mb-3">${data.title}</h3>${data.body}`;
+      const modal = document.getElementById('modal');
+      modal.classList.remove('opacity-0', 'invisible');
+      modal.classList.add('opacity-100', 'visible');
+    }
+    function closeModal() {
+      const modal = document.getElementById('modal');
+      modal.classList.add('opacity-0', 'invisible');
+      modal.classList.remove('opacity-100', 'visible');
+    }
+    // Close on backdrop click
+    document.getElementById('modal').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+  </script>
+</body>
+</html>
