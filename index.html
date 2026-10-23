@@ -12,7 +12,8 @@
         extend: {
           colors: {
             primary: '#1e3a8a',
-            accent: '#b45309',
+           // accent: '#b45309',
+            
           }
         }
       }
@@ -20,9 +21,17 @@
   </script>
   <style>
     :root { --font-size: 16px; }
-    body { font-size: var(--font-size); }
-    .jesus-words { color: #b91c1c; font-weight: 500; }
-    .dark .jesus-words { color: #fca5a5; }
+    body { 
+      font-size: var(--font-size); 
+      background-color: #ffffff;
+      color: #000000;
+    }
+    .dark body { 
+      background-color: #111827;
+      color: #ffffff;
+    }
+    .jesus-words { color: #b91c1c !important; font-weight: 500; }
+    .dark .jesus-words { color: #fca5a5 !important; }
     .egw-quote {
       border-left: 4px solid #b45309;
       background: #fffbeb;
@@ -30,6 +39,7 @@
       margin: 0.75rem 0;
       font-style: italic;
       border-radius: 0 0.5rem 0.5rem 0;
+      color: #000000;
     }
     .dark .egw-quote {
       background: #451a03;
@@ -39,16 +49,16 @@
     .modal { transition: opacity 0.3s ease, visibility 0.3s ease; }
     .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
     .accordion-content.open { max-height: 3000px; }
-    /* High contrast improvements */
-    body { color: #111827; }
-    .dark body { color: #f9fafb; }
+    /* Force high contrast: black on white in light, white on dark in dark */
+    .light-text { color: #000000 !important; }
+    .dark .light-text { color: #ffffff !important; }
   </style>
 </head>
-<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen transition-colors duration-300">
+<body class="bg-white dark:bg-gray-900 text-black dark:text-white min-h-screen transition-colors duration-300">
   <!-- Header Controls -->
   <header class="sticky top-0 z-50 bg-white/95 dark:bg-gray-800/95 backdrop-blur border-b border-gray-300 dark:border-gray-700">
     <div class="max-w-5xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
-      <h1 class="text-xl md:text-2xl font-bold text-blue-900 dark:text-blue-300">Gift of Prophecy</h1>
+      <h1 class="text-xl md:text-2xl font-bold text-black dark:text-white">Gift of Prophecy</h1>
       <div class="flex items-center gap-2 flex-wrap">
         <div class="flex items-center gap-1 bg-gray-200 dark:bg-gray-700 rounded-lg p-1">
           <button onclick="changeFont(-1)" class="px-2 py-1 rounded hover:bg-gray-300 dark:hover:bg-gray-600 text-sm font-medium text-gray-900 dark:text-white">A−</button>
@@ -64,13 +74,13 @@
 
   <main class="max-w-5xl mx-auto px-4 py-6 md:py-8 space-y-8">
     <!-- Intro -->
-    <section class="bg-blue-50 dark:bg-blue-950 rounded-2xl p-6 md:p-8 border border-blue-200 dark:border-blue-800">
-      <p class="text-sm font-semibold text-blue-900 dark:text-blue-300 uppercase tracking-wide">Sabbath School • 4th Quarter 2026 • Lesson 4</p>
-      <h2 class="text-2xl md:text-3xl font-bold mt-2 mb-4 text-gray-900 dark:text-white">New Testament Prophets</h2>
-      <p class="text-lg leading-relaxed text-gray-800 dark:text-gray-200">October 17–23 • The same Holy Spirit who inspired Old Testament prophets continues in the New Testament, always centering Jesus Christ—His first coming, ministry, death, resurrection, and second coming.</p>
-      <div class="mt-4 p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700">
-        <p class="font-medium text-gray-900 dark:text-white">Memory Text</p>
-        <p class="italic mt-1 text-gray-800 dark:text-gray-200">“There are diversities of gifts, but the same Spirit. There are differences of ministries, but the same Lord. And there are diversities of activities, but it is the same God who works all in all.” — 1 Corinthians 12:4-6</p>
+    <section class="bg-white dark:bg-blue-950 rounded-2xl p-6 md:p-8 border border-gray-300 dark:border-blue-800">
+      <p class="text-sm font-semibold text-black dark:text-white uppercase tracking-wide">Sabbath School • 4th Quarter 2026 • Lesson 4</p>
+      <h2 class="text-2xl md:text-3xl font-bold mt-2 mb-4 text-black dark:text-white">New Testament Prophets</h2>
+      <p class="text-lg leading-relaxed text-black dark:text-white">October 17–23 • The same Holy Spirit who inspired Old Testament prophets continues in the New Testament, always centering Jesus Christ—His first coming, ministry, death, resurrection, and second coming.</p>
+      <div class="mt-4 p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-300 dark:border-gray-700">
+        <p class="font-medium text-black dark:text-white">Memory Text</p>
+        <p class="italic mt-1 text-black dark:text-white">“There are diversities of gifts, but the same Spirit. There are differences of ministries, but the same Lord. And there are diversities of activities, but it is the same God who works all in all.” — 1 Corinthians 12:4-6</p>
       </div>
       <div class="egw-quote text-sm">
         “Christ and Him crucified should be the theme of contemplation, of conversation, and of our most joyful emotion.” — Ellen G. White, <em>Steps to Christ</em>, p. 103
@@ -79,16 +89,16 @@
 
     <!-- Daily Key Points -->
     <section>
-      <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">📅 Key Points by Day</h2>
+      <h2 class="text-2xl font-bold mb-4 text-black dark:text-white">📅 Key Points by Day</h2>
       <div class="space-y-3">
         <!-- Sabbath -->
         <div class="border border-gray-300 dark:border-gray-700 rounded-xl overflow-hidden">
-          <button onclick="toggleAccordion(this)" class="w-full text-left px-5 py-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 font-semibold flex justify-between items-center text-gray-900 dark:text-white">
+          <button onclick="toggleAccordion(this)" class="w-full text-left px-5 py-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 font-semibold flex justify-between items-center text-black dark:text-white">
             <span>Sabbath Afternoon (Oct 17) — Continuity of the Spirit</span>
             <span class="text-xl">+</span>
           </button>
           <div class="accordion-content bg-white dark:bg-gray-850">
-            <div class="px-5 py-4 space-y-2 text-sm md:text-base text-gray-800 dark:text-gray-200">
+            <div class="px-5 py-4 space-y-2 text-sm md:text-base text-black dark:text-white">
               <ul class="list-disc pl-5 space-y-1">
                 <li>Same Holy Spirit is the source of inspiration in both Testaments.</li>
                 <li>Christ is the center of prophetic messages (Hebrews 1:1-3).</li>
@@ -104,7 +114,7 @@
 
         <!-- Sunday -->
         <div class="border border-gray-300 dark:border-gray-700 rounded-xl overflow-hidden">
-          <button onclick="toggleAccordion(this)" class="w-full text-left px-5 py-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 font-semibold flex justify-between items-center text-gray-900 dark:text-white">
+          <button onclick="toggleAccordion(this)" class="w-full text-left px-5 py-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 font-semibold flex justify-between items-center text-black dark:text-white">
             <span>Sunday (Oct 18) — Jesus as the Prophet</span>
             <span class="text-xl">+</span>
           </button>
@@ -126,7 +136,7 @@
 
         <!-- Monday -->
         <div class="border border-gray-300 dark:border-gray-700 rounded-xl overflow-hidden">
-          <button onclick="toggleAccordion(this)" class="w-full text-left px-5 py-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 font-semibold flex justify-between items-center text-gray-900 dark:text-white">
+          <button onclick="toggleAccordion(this)" class="w-full text-left px-5 py-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 font-semibold flex justify-between items-center text-black dark:text-white">
             <span>Monday (Oct 19) — Apostles and Prophets</span>
             <span class="text-xl">+</span>
           </button>
@@ -147,7 +157,7 @@
 
         <!-- Tuesday -->
         <div class="border border-gray-300 dark:border-gray-700 rounded-xl overflow-hidden">
-          <button onclick="toggleAccordion(this)" class="w-full text-left px-5 py-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 font-semibold flex justify-between items-center text-gray-900 dark:text-white">
+          <button onclick="toggleAccordion(this)" class="w-full text-left px-5 py-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 font-semibold flex justify-between items-center text-black dark:text-white">
             <span>Tuesday (Oct 20) — Functions of NT Prophets</span>
             <span class="text-xl">+</span>
           </button>
@@ -169,7 +179,7 @@
 
         <!-- Wednesday -->
         <div class="border border-gray-300 dark:border-gray-700 rounded-xl overflow-hidden">
-          <button onclick="toggleAccordion(this)" class="w-full text-left px-5 py-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 font-semibold flex justify-between items-center text-gray-900 dark:text-white">
+          <button onclick="toggleAccordion(this)" class="w-full text-left px-5 py-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 font-semibold flex justify-between items-center text-black dark:text-white">
             <span>Wednesday (Oct 21) — Female Prophets & Young Leaders</span>
             <span class="text-xl">+</span>
           </button>
@@ -190,7 +200,7 @@
 
         <!-- Thursday -->
         <div class="border border-gray-300 dark:border-gray-700 rounded-xl overflow-hidden">
-          <button onclick="toggleAccordion(this)" class="w-full text-left px-5 py-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 font-semibold flex justify-between items-center text-gray-900 dark:text-white">
+          <button onclick="toggleAccordion(this)" class="w-full text-left px-5 py-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 font-semibold flex justify-between items-center text-black dark:text-white">
             <span>Thursday (Oct 22) — False Prophets</span>
             <span class="text-xl">+</span>
           </button>
@@ -211,7 +221,7 @@
 
         <!-- Friday -->
         <div class="border border-gray-300 dark:border-gray-700 rounded-xl overflow-hidden">
-          <button onclick="toggleAccordion(this)" class="w-full text-left px-5 py-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 font-semibold flex justify-between items-center text-gray-900 dark:text-white">
+          <button onclick="toggleAccordion(this)" class="w-full text-left px-5 py-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 font-semibold flex justify-between items-center text-black dark:text-white">
             <span>Friday (Oct 23) — Keeping Jesus & His Word Central</span>
             <span class="text-xl">+</span>
           </button>
@@ -234,7 +244,7 @@
 
     <!-- OT vs NT Comparison -->
     <section class="bg-gray-50 dark:bg-gray-800 rounded-2xl p-6 border border-gray-300 dark:border-gray-700">
-      <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">⚖️ Old Testament vs New Testament Prophets</h2>
+      <h2 class="text-2xl font-bold mb-4 text-black dark:text-white">⚖️ Old Testament vs New Testament Prophets</h2>
       <div class="overflow-x-auto">
         <table class="w-full text-sm md:text-base border-collapse">
           <thead>
@@ -244,13 +254,13 @@
               <th class="p-3 text-left border border-gray-400 dark:border-gray-600 text-gray-900 dark:text-white">New Testament</th>
             </tr>
           </thead>
-          <tbody class="text-gray-800 dark:text-gray-200">
+          <tbody class="text-black dark:text-white">
             <tr>
               <td class="p-3 border border-gray-300 dark:border-gray-600 font-medium">Source</td>
               <td class="p-3 border border-gray-300 dark:border-gray-600">Holy Spirit (same)</td>
               <td class="p-3 border border-gray-300 dark:border-gray-600">Holy Spirit (same) — 1 Cor 12:4-6</td>
             </tr>
-            <tr class="bg-white dark:bg-gray-750">
+            <tr class="">
               <td class="p-3 border border-gray-300 dark:border-gray-600 font-medium">Central Focus</td>
               <td class="p-3 border border-gray-300 dark:border-gray-600">Coming Messiah, covenant with Israel</td>
               <td class="p-3 border border-gray-300 dark:border-gray-600">Jesus Himself — first & second coming (Luke 24:44-47; Rev 22:6)</td>
@@ -260,7 +270,7 @@
               <td class="p-3 border border-gray-300 dark:border-gray-600">Foretell, warn nation, call to repentance</td>
               <td class="p-3 border border-gray-300 dark:border-gray-600">Edify, exhort, comfort the church (1 Cor 14:3; Eph 4:11-13)</td>
             </tr>
-            <tr class="bg-white dark:bg-gray-750">
+            <tr class="dark:bg-gray-750">
               <td class="p-3 border border-gray-300 dark:border-gray-600 font-medium">Audience</td>
               <td class="p-3 border border-gray-300 dark:border-gray-600">Primarily national Israel</td>
               <td class="p-3 border border-gray-300 dark:border-gray-600">The body of Christ / church (Eph 2:20)</td>
@@ -272,13 +282,13 @@
 
     <!-- Jesus Central to Prophecy -->
     <section class="space-y-6">
-      <h2 class="text-2xl font-bold text-gray-900 dark:text-white">✝️ Jesus & His Comings Are Central to All Prophecy</h2>
-      <p class="text-lg text-gray-800 dark:text-gray-200">Both the first and second comings of Jesus form the heart of biblical prophecy from Genesis to Revelation.</p>
+      <h2 class="text-2xl font-bold text-black dark:text-white">✝️ Jesus & His Comings Are Central to All Prophecy</h2>
+      <p class="text-lg text-black dark:text-white">Both the first and second comings of Jesus form the heart of biblical prophecy from Genesis to Revelation.</p>
 
       <div class="grid md:grid-cols-2 gap-4">
         <div class="bg-amber-50 dark:bg-amber-950/40 rounded-xl p-5 border-2 border-amber-300 dark:border-amber-700">
-          <h3 class="font-bold text-lg mb-2 text-gray-900 dark:text-white">First Coming</h3>
-          <ul class="list-disc pl-5 space-y-1 text-sm md:text-base text-gray-800 dark:text-gray-200">
+          <h3 class="font-bold text-lg mb-2 text-black dark:text-white">First Coming</h3>
+          <ul class="list-disc pl-5 space-y-1 text-sm md:text-base text-black dark:text-white">
             <li>Fulfillment of Messianic prophecies (Isaiah 53; Micah 5:2)</li>
             <li>Luke 24:25-27, 44-47 — Jesus explained Himself from all the prophets</li>
             <li>John 5:39 — Scriptures testify of Him</li>
@@ -290,8 +300,8 @@
           <button onclick="openModal('firstComing')" class="mt-3 text-blue-800 dark:text-blue-300 underline text-sm font-medium">Study First Coming Verses</button>
         </div>
         <div class="bg-sky-50 dark:bg-sky-950/40 rounded-xl p-5 border-2 border-sky-300 dark:border-sky-700">
-          <h3 class="font-bold text-lg mb-2 text-gray-900 dark:text-white">Second Coming</h3>
-          <ul class="list-disc pl-5 space-y-1 text-sm md:text-base text-gray-800 dark:text-gray-200">
+          <h3 class="font-bold text-lg mb-2 text-black dark:text-white">Second Coming</h3>
+          <ul class="list-disc pl-5 space-y-1 text-sm md:text-base text-black dark:text-white">
             <li>OT prophets foresaw ultimate restoration (Isaiah 11; Daniel 7)</li>
             <li>NT points to His return (Matt 24; 1 Thess 4; Rev 19)</li>
             <li>Revelation 22:6 — Lord God of the holy prophets</li>
@@ -307,25 +317,25 @@
 
     <!-- Thought-Provoking Questions -->
     <section>
-      <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">💭 Questions to Guide Your Thinking</h2>
-      <p class="mb-4 text-gray-700 dark:text-gray-300">Click any question to open a focused study popup with related Bible verses. Words of Jesus appear in <span class="jesus-words">red</span>.</p>
+      <h2 class="text-2xl font-bold mb-4 text-black dark:text-white">💭 Questions to Guide Your Thinking</h2>
+      <p class="mb-4 text-black dark:text-white">Click any question to open a focused study popup with related Bible verses. Words of Jesus appear in <span class="jesus-words">red</span>.</p>
       <div class="grid sm:grid-cols-2 gap-3">
-        <button onclick="openModal('q1')" class="text-left p-4 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 hover:shadow-md transition text-gray-900 dark:text-white">
+        <button onclick="openModal('q1')" class="text-left p-4 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 hover:shadow-md transition text-black dark:text-white">
           <span class="font-semibold">1. How does recognizing Jesus as “the Prophet” change how we read all earlier prophets?</span>
         </button>
-        <button onclick="openModal('q2')" class="text-left p-4 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 hover:shadow-md transition text-gray-900 dark:text-white">
+        <button onclick="openModal('q2')" class="text-left p-4 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 hover:shadow-md transition text-black dark:text-white">
           <span class="font-semibold">2. Why is the church-edifying role of NT prophets different from the primarily national focus of many OT prophets?</span>
         </button>
-        <button onclick="openModal('q3')" class="text-left p-4 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 hover:shadow-md transition text-gray-900 dark:text-white">
+        <button onclick="openModal('q3')" class="text-left p-4 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 hover:shadow-md transition text-black dark:text-white">
           <span class="font-semibold">3. How do the first and second comings together form the single storyline of biblical prophecy?</span>
         </button>
-        <button onclick="openModal('q4')" class="text-left p-4 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 hover:shadow-md transition text-gray-900 dark:text-white">
+        <button onclick="openModal('q4')" class="text-left p-4 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 hover:shadow-md transition text-black dark:text-white">
           <span class="font-semibold">4. What practical difference does it make that the same Spirit who spoke through Isaiah now speaks about the risen Christ?</span>
         </button>
         <button onclick="openModal('q5')" class="text-left p-4 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 hover:shadow-md transition text-gray-900 dark:text-white">
           <span class="font-semibold">5. How does the warning about false prophets in Matthew 24 connect to keeping Jesus’ comings central?</span>
         </button>
-        <button onclick="openModal('q6')" class="text-left p-4 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 hover:shadow-md transition text-gray-900 dark:text-white">
+        <button onclick="openModal('q6')" class="text-left p-4 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 hover:shadow-md transition text-black dark:text-white">
           <span class="font-semibold">6. How can non-canonical prophets still point people to the same Christ the canonical prophets revealed?</span>
         </button>
       </div>
